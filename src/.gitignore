@@ -1,0 +1,4 @@
+*.d
+*.o
+gmgm
+libgmgm/libgmgm.a
