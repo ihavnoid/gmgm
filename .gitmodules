@@ -1,3 +1,3 @@
-[submodule "src/Eigen"]
+[submodule "src/libgmgm/Eigen"]
 	path = src/libgmgm/Eigen
 	url = https://github.com/eigenteam/eigen-git-mirror
