@@ -139,12 +139,18 @@ private:
     std::vector<Move> __must_lose(int max_depth, bool & timeout);
     std::vector<Move> __can_win(int max_depth, bool & timeout);
 public:
+
     Board(std::string cho_state, std::string han_state);
     Board(StartingState cho_state, StartingState han_state);
     Board(const Board & b) = default;
 
     void __init(StartingState cho_state, StartingState han_state);
     
+    void clear_cache() {
+        legal_move_cache.clear();
+        legal_move_opponent_cache.clear();
+    }
+
     bool is_jang() const;
     bool can_win_immediately() const;
     bool compare(const Board & other) const;

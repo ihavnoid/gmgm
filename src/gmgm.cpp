@@ -203,6 +203,8 @@ static void think() {
         return;
     }
 
+    gmgm::globals::jang_move_is_illegal = false;
+    board.clear_cache();
     std::cout << "Thinking..." << std::endl;
     std::vector<gmgm::SearchResult> candidate = search.search(board, position_eval.get(), search_num, search_time_ms);
 
@@ -219,6 +221,8 @@ static void think() {
         std::cout << "move " << max_candidate.move.string() << std::endl;
         board.move(max_candidate.move);
     }
+    board.clear_cache();
+    gmgm::globals::jang_move_is_illegal = true;
 }
 
 static void display() {
@@ -488,6 +492,7 @@ int main(int argc, const char ** argv) {
     
     gmgm::globals::cache_size = 20000;
     gmgm::globals::batch_size = 12;
+    gmgm::globals::jang_move_is_illegal = true;
 
     search.num_threads = 12;
     search.print_period = 2500;

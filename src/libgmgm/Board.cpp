@@ -1196,8 +1196,7 @@ void gmgm::Board::move(const gmgm::Move & m) {
         assert(found_match);
     }
 #endif
-    legal_move_cache.clear();
-    legal_move_opponent_cache.clear();
+    clear_cache();
     
     auto piece = board[m.yx_from];
 
@@ -1319,8 +1318,7 @@ gmgm::Move gmgm::Board::unmove() {
     if(history.empty()) {
         throw std::out_of_range("No move history");
     }
-    legal_move_cache.clear();
-    legal_move_opponent_cache.clear();
+    clear_cache();
     const auto & m = history.back().move;
     const auto & prev_boardhash = history.back().boardhash;
     const auto & prev_playhash = history.back().playhash;
