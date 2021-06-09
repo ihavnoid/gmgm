@@ -19,7 +19,7 @@ LIBS = libgmgm/libgmgm_$(TARGET).a
 CXXFLAGS += -Wno-deprecated-copy
 CPPFLAGS += -MD -MP
 
-sources_cpp = gmgm.cpp
+sources_cpp = gmgm.cpp util.cpp
 
 objects = $(sources_cpp:.cpp=.$(TARGET).o)
 deps = $(sources_cpp:%.cpp=%.$(TARGET).d)

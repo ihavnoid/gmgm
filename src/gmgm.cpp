@@ -18,6 +18,7 @@
 #include <iostream>
 #include <string>
 
+#include "gmgm_wrapper.h"
 #include "libgmgm/gmgm.h"
 
 #include <boost/program_options.hpp>
@@ -203,8 +204,6 @@ static void think() {
         return;
     }
 
-    gmgm::globals::jang_move_is_illegal = false;
-    board.clear_cache();
     std::cout << "Thinking..." << std::endl;
     std::vector<gmgm::SearchResult> candidate = search.search(board, position_eval.get(), search_num, search_time_ms);
 
@@ -221,15 +220,13 @@ static void think() {
         std::cout << "move " << max_candidate.move.string() << std::endl;
         board.move(max_candidate.move);
     }
-    board.clear_cache();
-    gmgm::globals::jang_move_is_illegal = true;
 }
 
 static void display() {
     board.print(std::cout);
     std::cout << std::endl;
     std::cout << "legal moves: " << std::endl;
-    auto lm = board.get_legal_moves();
+    auto lm = get_legal_moves_wrapper(board);
     int ptr = 0;
     for(auto m : lm) {
         std::cout << boost::format("%-8s") % m.string() << " ";
@@ -374,7 +371,7 @@ std::vector<Command> command_list {
     Command("move", "[move_number]", "Make a move.  move_number should be in a form of [source-destination]",
         [](auto s1, auto s2, auto s3, auto s4) {
             CHECK_PARAM_1();
-            auto lm = board.get_legal_moves();
+            auto lm = get_legal_moves_wrapper(board);
             for(auto & m : lm) {
                 if (m.string() == s1) {
                     board.move(m);
@@ -388,7 +385,7 @@ std::vector<Command> command_list {
     Command("play", "[move_number]", "Make a move, and let AI think. move_number should be in a form of [source-destination]",
         [](auto s1, auto s2, auto s3, auto s4) {
             CHECK_PARAM_1();
-            auto lm = board.get_legal_moves();
+            auto lm = get_legal_moves_wrapper(board);
             for(auto & m : lm) {
                 if (m.string() == s1) {
                     board.move(m);
@@ -492,7 +489,7 @@ int main(int argc, const char ** argv) {
     
     gmgm::globals::cache_size = 20000;
     gmgm::globals::batch_size = 12;
-    gmgm::globals::jang_move_is_illegal = true;
+    gmgm::globals::jang_move_is_illegal = false;
 
     search.num_threads = 12;
     search.print_period = 2500;
