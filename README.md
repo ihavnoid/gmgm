@@ -19,7 +19,7 @@ This should be good enough to play against most casual players.
 
 # Compiling
 
-## Requirements (mostly copied from leela-zero, not that much default)
+## Requirements (mostly copied from leela-zero)
 
 * GCC, Clang or MSVC, any C++14 compiler
 * Boost 1.58.x or later, headers and program_options, filesystem and system libraries (libboost-dev, libboost-program-options-dev and libboost-filesystem-dev on Debian/Ubuntu)
